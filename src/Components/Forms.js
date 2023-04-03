@@ -85,17 +85,17 @@ function Forms() {
   }
   function ageValidation() {
     let ageValue = age;
-    if (ageValue.trim().length == 0) {
+    if (ageValue.trim().length === 0) {
+      return false;
+    }
+    
+    let rightValue=/^[0-9]*$/
+    if (!rightValue.test(ageValue)) {
+     
       return false;
     }
     ageValue = Number(age);
-   
-
-    if (ageValue == NaN) {
-      console.log(1)
-      return false;
-    }
-    if (ageValue == 2) {
+    if (ageValue === 2) {
       return true;
     }
     if (ageValue < 0) {
@@ -106,7 +106,7 @@ function Forms() {
       // console.log(ageValue, 1);
 
       let age1 = age;
-      if (age1 % ageValue == 0) {
+      if (age1 % ageValue === 0) {
         return false;
       }
       ageValue--;
@@ -117,7 +117,7 @@ function Forms() {
     let correctPattern = /^[A-Za-z0-9_]*$/;
     let nameValue = userName;
      console.log(userName)
-    if (nameValue.trim().length == 0) {
+    if (nameValue.trim().length === 0) {
       return false;
     }
     
@@ -125,20 +125,20 @@ function Forms() {
   }
   function passwordValidation() {
     let passwordValue = password;
-    if (passwordValue.trim().length == 0) {
+    if (passwordValue.trim().length === 0) {
       return false;
     }
     let length = Math.floor(password.length / 2);
     let i = 0;
     while (i < length) {
-      if (password[i] == password[password.length - i - 1]) {
+      if (password[i] === password[password.length - i - 1]) {
         return false;
       }
       i++;
     }
     return true;
   }
-  let errordata = "";
+
   function renderError() {
     // console.log(errordata);
   }
