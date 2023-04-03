@@ -1,0 +1,87 @@
+.main_container {
+    align-items: center;
+    background-color: #555252;
+   
+    justify-content: center;
+    top: 70vh;
+    width: 60vh;
+    border: 2px transparent;
+    border-radius: 12px;
+    border: 1px solid;
+     padding: 10px;
+     box-shadow: 5px 5px 10px 5px  #5e5c5c;
+   
+  }
+
+  
+  input {
+    background-color: #d4d5df;
+    border-radius: 10px;
+    border: 0;
+    box-sizing: border-box;
+    color: #1b1a1a;
+    font-size: 18px;
+    height: 70px;
+    outline: 0;
+    padding: 4px 20px 0;
+    width: 50%;
+    
+  }
+  
+
+  
+  .placeholder {
+    color: #111113;
+    font-family: sans-serif;
+    left: 20px;
+    line-height: 14px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 200ms, color 200ms;
+    top: 20px;
+  }
+  
+  input:focus ~ .placeholder,
+  input:not(:placeholder-shown) ~ .placeholder {
+    transform: translateY(-30px) translateX(10px) scale(0.75);
+  }
+  
+ 
+  
+  button {
+    background-color: rgb(51, 52, 54);
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    margin-top: 38px;
+     outline: 0;
+    text-align: center;
+    width: 20%;
+    
+  }
+  
+button:active {
+    background-color: #06b;
+  }
+
+  .text_response{
+    color: red;
+    
+    padding-left: 2px;
+    left:36%;
+   
+     .text{
+      text-align: center;
+      
+     }
+  } 
+  
+  .password_eye{
+
+  margin-left: -30px; cursor: pointer;
+  }
