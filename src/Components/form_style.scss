@@ -1,87 +1,162 @@
 .main_container {
-    align-items: center;
-    background-color: #555252;
-   
-    justify-content: center;
-    top: 70vh;
-    width: 60vh;
-    border: 2px transparent;
-    border-radius: 12px;
-    border: 1px solid;
-     padding: 10px;
-     box-shadow: 5px 5px 10px 5px  #5e5c5c;
-   
-  }
+  align-items: center;
+  background-color: #555252;
 
-  
-  input {
-    background-color: #d4d5df;
-    border-radius: 10px;
-    border: 0;
-    box-sizing: border-box;
-    color: #1b1a1a;
-    font-size: 18px;
-    height: 70px;
-    outline: 0;
-    padding: 4px 20px 0;
-    width: 50%;
-    
-  }
-  
 
+  top: 50vh;
+  width: 60vh;
+  height: 80vh;
   
-  .placeholder {
-    color: #111113;
-    font-family: sans-serif;
-    left: 20px;
-    line-height: 14px;
-    pointer-events: none;
-    position: absolute;
-    transform-origin: 0 50%;
-    transition: transform 200ms, color 200ms;
-    top: 20px;
-  }
-  
-  input:focus ~ .placeholder,
-  input:not(:placeholder-shown) ~ .placeholder {
-    transform: translateY(-30px) translateX(10px) scale(0.75);
-  }
-  
- 
-  
-  button {
-    background-color: rgb(51, 52, 54);
-    border-radius: 12px;
-    border: 0;
-    box-sizing: border-box;
-    color: #eee;
-    cursor: pointer;
-    font-size: 18px;
-    height: 50px;
-    margin-top: 38px;
-     outline: 0;
-    text-align: center;
-    width: 20%;
-    
-  }
-  
+  border: 2px transparent;
+  border-radius: 25px;
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  box-shadow: 5px 5px 10px 5px #5e5c5c;
+}
+
+input {
+  background-color: #d4d5df;
+  border-radius: 10px;
+  border: 0;
+  box-sizing: border-box;
+  color: #1b1a1a;
+  font-size: 18px;
+  height: 70px;
+  outline: 0;
+  padding: 4px 20px 0;
+  width: 30vh;
+}
+
+.placeholder {
+  color: #111113;
+  font-family: sans-serif;
+  left: 20px;
+  line-height: 14px;
+  pointer-events: none;
+  position: absolute;
+  transform-origin: 0 50%;
+  transition: transform 200ms, color 200ms;
+  top: 20px;
+}
+
+input:focus ~ .placeholder,
+input:not(:placeholder-shown) ~ .placeholder {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+button {
+  background-color: rgb(51, 52, 54);
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 38px;
+  outline: 0;
+  text-align: center;
+  width: 10vh;
+}
+
 button:active {
-    background-color: #06b;
-  }
+  background-color: #06b;
+}
 
-  .text_response{
-    color: red;
-    
-    padding-left: 2px;
-    left:36%;
-   
-     .text{
-      text-align: center;
-      
-     }
-  } 
+.text_response {
+  color: rgb(236, 233, 233);
+
+  padding-left: 2px;
+  left: 36%;
+
+  .text {
+    text-align: center;
+  }
+}
+
+.password_eye {
+  margin-left: -30px;
+  cursor: pointer;
+}
+.errorMessage {
+  color: red;
+}
+table {
+  width: 50vh;
   
-  .password_eye{
-
-  margin-left: -30px; cursor: pointer;
+  thead {
+    height: 30px;
+    th {
+      border: 1px solid;
+      height: 30px;
+      background-color: #111113;
+      color: #eee;
+      position: sticky;
+      border-radius: 10px;
+      top: 0;
+    }
   }
+  tbody {
+    
+    color: #666669;
+  
+    
+    overflow-y: auto;
+
+    tr {
+      height: 30px;
+      td {
+        background-color: #d9d9dc;
+        color: #111113;
+        height: 30px;
+        border: 1px solid;
+        border-radius: 10px;
+        
+      }
+    }
+  }
+}
+
+.table_format{
+  height: 50vh;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+  background: transparent;
+  
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(93, 92, 92); 
+  border-radius: 10px;
+ 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(7, 7, 7); 
+  border-radius: 10px;
+  
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #161616; 
+  height: 10px;
+  
+}
+.buttons{
+  display: flex;
+  width: 30vh;
+  justify-content: space-between;
+}
+.checkbox_class{
+  width: 14px;
+  height: 30px;
+  accent-color:black;
+}

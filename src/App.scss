@@ -2,7 +2,7 @@
   text-align: center;
   background-color: #111111;
   height:100vh;
-  padding-left: 50vh;
+  padding-left: auto;
 }
 
 .App-logo {
@@ -38,4 +38,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+.main_div{
+  display: flex;
+  justify-content: space-evenly;
 }
