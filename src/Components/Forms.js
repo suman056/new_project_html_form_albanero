@@ -219,7 +219,7 @@ function Forms(props) {
           <br />
           <input
             placeholder="password"
-           
+            type="password"
             name="realpassword"
             value={password}
             onChange={(e) => {

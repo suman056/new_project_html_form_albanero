@@ -6,6 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
 function TableInfo(props) {
   const [dataAvailable, setDataAvailable] = useState([]);
@@ -47,6 +48,8 @@ function TableInfo(props) {
 
     setIsDelete(false);
   };
+
+
   const deleteHanlde = (e, index) => {
     let indexArray = isIndex;
     if (e.target.checked) {
@@ -59,10 +62,50 @@ function TableInfo(props) {
       }
     }
   };
-  const deleteHandleForm=()=>{
-    console.log(dataAvailable)
-    setDataAvailable([])
+
+
+  const downloadFile=()=>{
+      let data=jsonToCsv(dataAvailable,headersName)
+      const blob = new Blob([data], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.download = `tabledata-modified.csv`;
+      link.href = url;
+      link.click()
   }
+
+  const jsonToCsv=(data,headers)=>{
+      let headersdata=headers.join(",")
+      console.log(headersdata)
+      let dataArray=data
+      let eachRowData=[]
+      dataArray.forEach((value)=>{
+          let eachArray=[]
+          headers.forEach((headdata)=>{
+            if(headdata=="password")
+            {let passwordlngth=value[headdata].length
+              let newpass=""
+              while(passwordlngth>0){
+                newpass+="*"
+                passwordlngth--
+              }
+             
+              eachArray.push(newpass)
+            }
+          else{
+          eachArray.push(value[headdata])
+          }
+        })
+         
+         eachRowData.push( eachArray.join(","))
+          
+      })
+      
+      let tabledata=eachRowData.join("\n")
+      
+      return headersdata+"\n"+tabledata
+  }
+  
   return (
     <div className="main_container">
       <h2>TableInfo</h2>
@@ -148,7 +191,7 @@ function TableInfo(props) {
                 ))
               : dataAvailable.length > 0 && isOnlySave && !isDelete
               ? dataAvailable.map((row, index) => (
-                  <tr key={row.keyValue}>
+                  <tr key={row.id}>
                     {headersName.map((head) => (
                       <td
                         key={`${row.id}-${head}`}
@@ -204,8 +247,9 @@ function TableInfo(props) {
               : ""}
           </tbody>
         </table>
-        
-      </div>
+      </div><div>
+        {dataAvailable.length>0&&!isDelete&& !isOnlySave?<button onClick={()=>{downloadFile()}}><FileDownloadIcon/></button>:""}
+        </div>
       
     </div>
   );

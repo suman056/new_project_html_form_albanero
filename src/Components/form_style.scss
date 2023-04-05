@@ -106,13 +106,16 @@ table {
     overflow-y: auto;
 
     tr {
-      height: 30px;
+      
       td {
         background-color: #d9d9dc;
         color: #111113;
-        height: 30px;
+        height:30px;
         border: 1px solid;
         border-radius: 10px;
+        max-width: 40px;
+        max-height: auto;
+        overflow-wrap: break-word;
         
       }
     }
