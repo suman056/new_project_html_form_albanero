@@ -102,18 +102,21 @@ table {
     
     color: #666669;
   
-    
+     
     overflow-y: auto;
 
     tr {
       
       td {
         background-color: #d9d9dc;
+        flex-wrap: wrap;
+        align-content: center;
+        
         color: #111113;
-        height:30px;
+        height:40px;
         border: 1px solid;
         border-radius: 10px;
-        max-width: 40px;
+        max-width: 30px;
         max-height: auto;
         overflow-wrap: break-word;
         
@@ -162,4 +165,23 @@ table {
   width: 14px;
   height: 30px;
   accent-color:black;
+}
+.edit_button_row{
+  width: 30px;
+  height:40px;
+  background-color: #d4d5df;
+  color :#111113;
+  
+  margin:auto;
+  display:block;
+  
+
+}
+.edit_table_data{
+  width: 20px;
+  height: 20px ;
+  
+}
+.password_input{
+  width: 25vh;
 }
