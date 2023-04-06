@@ -143,7 +143,9 @@ function Forms(props) {
       return false;
     }
     ageValue = Number(ageValue);
-
+    if(ageValue==0){
+      return false
+    }
     if (ageValue === 2) {
       return true;
     }
@@ -261,6 +263,7 @@ function Forms(props) {
           </p>
 
           <br />
+          
           <input
             className="password_input"
             placeholder="password"

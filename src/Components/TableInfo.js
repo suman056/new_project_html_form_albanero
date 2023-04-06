@@ -8,6 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import  Snackbar  from "./Snakbar";
+import Papa from 'papaparse'
 
 function TableInfo(props) {
   const [dataAvailable, setDataAvailable] = useState([]);
@@ -85,6 +86,7 @@ function TableInfo(props) {
   };
 
   const downloadFile = () => {
+    console.log(dataAvailable)
     let data = jsonToCsv(dataAvailable, headersName);
     const blob = new Blob([data], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
@@ -95,33 +97,58 @@ function TableInfo(props) {
   };
 
   const jsonToCsv = (data, headers) => {
-    let headersdata = headers.join(",");
-    console.log(headersdata);
-    let dataArray = data;
-    let eachRowData = [];
-    dataArray.forEach((value) => {
-      let eachArray = [];
-      headers.forEach((headdata) => {
-        if (headdata == "password") {
-          let passwordlngth = value[headdata].length;
-          let newpass = "";
-          while (passwordlngth > 0) {
-            newpass += "*";
-            passwordlngth--;
-          }
+    
+     data.forEach((value)=>{
+      delete value.id
+      let lenofPass=value.password.length
+      let newPass=""
+      while(lenofPass>0){
+        newPass+="*"
+        lenofPass--
+      }
+      value.password=newPass
+     })
+     console.log("data",data)
+    
+      const csv = Papa.unparse(data);
+      return csv;
+    
+    
+   
 
-          eachArray.push(newpass);
-        } else {
-          eachArray.push(value[headdata]);
-        }
-      });
 
-      eachRowData.push(eachArray.join(","));
-    });
 
-    let tabledata = eachRowData.join("\n");
 
-    return headersdata + "\n" + tabledata;
+
+
+
+    // let headersdata = headers.join(",");
+    // console.log(headersdata);
+    // let dataArray = data;
+    // let eachRowData = [];
+    // dataArray.forEach((value) => {
+    //   let eachArray = [];
+    //   headers.forEach((headdata) => {
+    //     if (headdata == "password") {
+    //       let passwordlngth = value[headdata].length;
+    //       let newpass = "";
+    //       while (passwordlngth > 0) {
+    //         newpass += "*";
+    //         passwordlngth--;
+    //       }
+
+    //       eachArray.push(newpass);
+    //     } else {
+    //       eachArray.push(value[headdata]);
+    //     }
+    //   });
+
+    //   eachRowData.push(eachArray.join(","));
+    // });
+
+    // let tabledata = eachRowData.join("\n");
+
+    // return headersdata + "\n" + tabledata;
   };
 
   const updateDatainFormCall = (index) => {
