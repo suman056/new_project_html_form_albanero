@@ -21,7 +21,7 @@ input {
   border-radius: 10px;
   border: 0;
   box-sizing: border-box;
-  color: #1b1a1a;
+  color: #370404;
   font-size: 18px;
   height: 70px;
   outline: 0;
@@ -30,7 +30,7 @@ input {
 }
 
 .placeholder {
-  color: #111113;
+  color: #370404;
   font-family: sans-serif;
   left: 20px;
   line-height: 14px;
@@ -47,7 +47,7 @@ input:not(:placeholder-shown) ~ .placeholder {
 }
 
 button {
-  background-color: rgb(51, 52, 54);
+  background-color: #370404;
   border-radius: 12px;
   border: 0;
   box-sizing: border-box;
@@ -62,7 +62,8 @@ button {
 }
 
 button:active {
-  background-color: #06b;
+  background-color: rgb(202, 196, 189);
+  color: #370404;
 }
 
 .text_response {
@@ -91,7 +92,7 @@ table {
     th {
       border: 1px solid;
       height: 30px;
-      background-color: #111113;
+      background-color: #370404;
       color: #eee;
       position: sticky;
       border-radius: 10px;
@@ -112,7 +113,7 @@ table {
         flex-wrap: wrap;
         align-content: center;
         
-        color: #111113;
+        color: #370404;
         height:40px;
         border: 1px solid;
         border-radius: 10px;
@@ -145,14 +146,14 @@ table {
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(7, 7, 7); 
+  background:#370404; 
   border-radius: 10px;
   
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #161616; 
+  background: #370404; 
   height: 10px;
   
 }
@@ -164,13 +165,13 @@ table {
 .checkbox_class{
   width: 14px;
   height: 30px;
-  accent-color:black;
+  accent-color:#370404;
 }
 .edit_button_row{
   width: 30px;
   height:40px;
   background-color: #d4d5df;
-  color :#111113;
+  color :#370404;
   
   margin:auto;
   display:block;

@@ -7,8 +7,9 @@ import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import  Snackbar  from "./Snakbar";
-import Papa from 'papaparse'
+import Snackbar from "./Snakbar";
+import Papa from "papaparse";
+import { Draggable,Droppable,DragDropContext } from "react-beautiful-dnd";
 
 function TableInfo(props) {
   const [dataAvailable, setDataAvailable] = useState([]);
@@ -16,7 +17,7 @@ function TableInfo(props) {
   const [selectedCell, setSelectedCell] = useState({});
   const [isDelete, setIsDelete] = useState(false);
   const [isIndex, setIsIndex] = useState([]);
-  const  [isUpdate,setIsUpdate]=useState(false)
+  const [isUpdate, setIsUpdate] = useState(false);
 
   let headersName = ["name", "age", "username", "password"];
 
@@ -33,17 +34,16 @@ function TableInfo(props) {
         dataValue.forEach((data) => {
           if (data["id"] == value["id"]) {
             console.log("data", data);
-            data.name= value.name;
-            data.password=value.password
-            data.username=value.username
-            data.age=value.age
+            data.name = value.name;
+            data.password = value.password;
+            data.username = value.username;
+            data.age = value.age;
           }
         });
         console.log("updateddata", value);
-        
-        setDataAvailable([...dataValue])
-        setIsUpdate(true)
-        
+
+        setDataAvailable([...dataValue]);
+        setIsUpdate(true);
       }
     }
   }, [props.value]);
@@ -53,9 +53,7 @@ function TableInfo(props) {
     }
   };
   const handleSave = () => {
-   
     setIsOnlySave(false);
-  
   };
   const handleDeleteOption = () => {
     if (!isOnlySave) {
@@ -86,8 +84,9 @@ function TableInfo(props) {
   };
 
   const downloadFile = () => {
-    console.log(dataAvailable)
-    let data = jsonToCsv(dataAvailable, headersName);
+    console.log(dataAvailable);
+    let newdata=JSON.parse(JSON.stringify(dataAvailable))
+    let data = jsonToCsv(newdata);
     const blob = new Blob([data], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -96,70 +95,47 @@ function TableInfo(props) {
     link.click();
   };
 
-  const jsonToCsv = (data, headers) => {
-    
-     data.forEach((value)=>{
-      delete value.id
-      let lenofPass=value.password.length
-      let newPass=""
-      while(lenofPass>0){
-        newPass+="*"
-        lenofPass--
+  const jsonToCsv = (newdata) => {
+    newdata.forEach((value) => {
+      delete value.id;
+      let lenofPass = value.password.length;
+      
+      let newPass = "";
+      while (lenofPass > 0) {
+        newPass += "*";
+        lenofPass--;
       }
-      value.password=newPass
-     })
-     console.log("data",data)
+      value.password = newPass;
+      
+    });
     
-      const csv = Papa.unparse(data);
-      return csv;
-    
-    
+    const csv = Papa.unparse(newdata);
+    return csv;
+
    
-
-
-
-
-
-
-
-    // let headersdata = headers.join(",");
-    // console.log(headersdata);
-    // let dataArray = data;
-    // let eachRowData = [];
-    // dataArray.forEach((value) => {
-    //   let eachArray = [];
-    //   headers.forEach((headdata) => {
-    //     if (headdata == "password") {
-    //       let passwordlngth = value[headdata].length;
-    //       let newpass = "";
-    //       while (passwordlngth > 0) {
-    //         newpass += "*";
-    //         passwordlngth--;
-    //       }
-
-    //       eachArray.push(newpass);
-    //     } else {
-    //       eachArray.push(value[headdata]);
-    //     }
-    //   });
-
-    //   eachRowData.push(eachArray.join(","));
-    // });
-
-    // let tabledata = eachRowData.join("\n");
-
-    // return headersdata + "\n" + tabledata;
   };
 
   const updateDatainFormCall = (index) => {
-    setIsOnlySave(true)
-    setIsUpdate(false)
+    setIsOnlySave(true);
+    setIsUpdate(false);
     let data = dataAvailable[index];
-
+ 
     console.log("index", data);
     props.updateDatainForm(data);
   };
-
+  const handleDragEnd = (results) => {
+    console.log(dataAvailable)
+    console.log(results);
+      if(results.destination!=null){
+      let tempUser = [...dataAvailable];
+      let selectedRow = tempUser.splice(results.source.index, 1);
+      console.log(selectedRow)
+      tempUser.splice(results.destination.index, 0, selectedRow[0]);
+      console.log(tempUser)
+      setDataAvailable([...tempUser]);
+      console.log(dataAvailable)
+      }
+  };
   return (
     <div className="main_container">
       <h2>TableInfo</h2>
@@ -209,6 +185,10 @@ function TableInfo(props) {
       </div>
       <br />
       <div className="table_format">
+
+
+
+       <DragDropContext onDragEnd={(results)=>handleDragEnd(results)}>
         <table>
           {dataAvailable.length > 0 && !isDelete & !isOnlySave ? (
             <thead>
@@ -242,11 +222,16 @@ function TableInfo(props) {
           ) : (
             ""
           )}
-
-          <tbody>
-            {dataAvailable.length > 0 && !isOnlySave && !isDelete 
+            <Droppable droppableId="tbody">
+              {(provided)=>(
+          <tbody ref={provided.innerRef} {...provided.droppableProps}>
+            {dataAvailable.length > 0 && !isOnlySave && !isDelete
               ? dataAvailable.map((value, index) => (
-                  <tr key={value.id}>
+                <Draggable draggableId={value.id} index={index} key={value.id}>
+                  {(provided)=>(
+                  <tr key={value.id} ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}>
                     <td>{value.name}</td>
                     <td>{value.age}</td>
                     <td>{value.username}</td>
@@ -257,19 +242,29 @@ function TableInfo(props) {
                         onClick={() => {
                           updateDatainFormCall(index);
                         }}
-                      ><EditIcon />
+                      >
+                        <EditIcon />
                       </button>
                     </td>
                   </tr>
+                  )}
+                  </Draggable>
                 ))
-              : dataAvailable.length > 0 && isOnlySave && !isDelete 
+              : dataAvailable.length > 0 && isOnlySave && !isDelete
               ? dataAvailable.map((row, index) => (
-                  <tr key={row.id}>
+                <Draggable draggableId={row.id} index={index} key={row.id}>
+                  {(provided)=>(
+                  <tr key={row.id} ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps} >
                     {headersName.map((head) => (
                       <td
                         key={`${row.id}-${head}`}
                         onClick={() =>
-                          setSelectedCell({ row: index, column: head })
+                          setSelectedCell({
+                            row: index,
+                            column: head,
+                          })
                         }
                         contentEditable={
                           selectedCell &&
@@ -299,10 +294,16 @@ function TableInfo(props) {
                       </td>
                     ))}
                   </tr>
+                  )}
+                  </Draggable>
                 ))
-              : dataAvailable.length > 0 && !isOnlySave && isDelete 
+              : dataAvailable.length > 0 && !isOnlySave && isDelete
               ? dataAvailable.map((value, index) => (
-                  <tr key={value.id}>
+                <Draggable draggableId={value.id} index={index}  key={value.id}>
+                  {(provided)=>(
+                  <tr key={value.id} ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}>
                     <td>
                       <input
                         type="checkbox"
@@ -317,11 +318,19 @@ function TableInfo(props) {
                     <td>{value.username}</td>
                     <td>{value.password}</td>
                   </tr>
+                  )}
+                  </Draggable>
                 ))
               : ""}
-              
+               {provided.placeholder}
           </tbody>
+
+          )}
+          </Droppable>
         </table>
+
+        </DragDropContext>
+
       </div>
       <div>
         {dataAvailable.length > 0 && !isDelete && !isOnlySave ? (
@@ -337,7 +346,7 @@ function TableInfo(props) {
         )}
       </div>
       <div>
-      <Snackbar value={isUpdate}/>
+        <Snackbar value={isUpdate} />
       </div>
     </div>
   );
